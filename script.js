@@ -14,37 +14,44 @@ function getHumanChoice() {
     return anwser.toLowerCase();
 }
 
-function playRound(computerChoice, humanChoice)
+function playRound(computerChoice, humanChoice, computerScore, humanScore)
  {
-    console.log(`Computer choice: ${computerSelection} | Human choice: ${humanSelection}`);
+    console.clear();
+    console.log(
+        `Computer choice: ${computerChoice} | Human choice: ${humanChoice} `);
 
     if(computerChoice === humanChoice) {
         console.log(`Draw! ${computerChoice} vs ${humanChoice}`);
-    } else if(humanChoice === 'rock' && computerChoice === 'scissors') {
+    } else if(
+    (humanChoice === 'rock' && computerChoice === 'scissors') || 
+    (humanChoice === 'scissors' && computerChoice === 'paper') || 
+    (humanChoice === 'paper' && computerChoice === 'rock')) {
         console.log(`Player win! ${humanChoice} beats ${computerChoice}`);
-        humanScore += 1;
-    }else if(humanChoice === 'paper' && computerChoice === 'rock') {
-        console.log(`Player win! ${humanChoice} beats ${computerChoice}`);
-        humanScore += 1;
-    } else if(humanChoice === 'scissors' && computerChoice === 'paper') {
-        console.log(`Player win! ${humanChoice} beats ${computerChoice}`);
-        humanScore += 1;
+        return 'player';
     } else {
         console.log(`Computer win! ${computerChoice} beats ${humanChoice}`);
-        computerScore += 1;
+        return 'computer'
     }
-    
-    console.log(`Computer score: ${computerScore} | Human score: ${humanScore} `);
 }
 
+function playGame() {
+    let rounds = 5;
+    let computerScore = 0;
+    let humanScore = 0;
+    
+    while(rounds > 0) {
+        
+        const computerSelection = getComputerChoice();
+        const humanSelection = getHumanChoice();
+    
+        let winner = playRound(computerSelection, humanSelection, computerScore, humanScore);
+        if(winner === 'player') humanScore++;
+        else if(winner === 'computer') computerScore++;
+        rounds -= 1;
+        console.log(`Computer score: ${computerScore} | Human score: ${humanScore} | Rounds remaining: ${rounds}`);
+    }
 
+}
 
-let computerScore = 0;
-let humanScore = 0;
-const computerSelection = getComputerChoice();
-const humanSelection = getHumanChoice();
-
-
-
-playRound(computerSelection, humanSelection);
+playGame();
 
