@@ -1,0 +1,13 @@
+const computerChoice = getComputerChoice();
+console.log(computerChoice);
+
+function getComputerChoice() {
+    switch(Math.floor(Math.random() * 3) + 1) {
+        case 1:
+            return 'rock'
+        case 2:
+            return 'paper'
+        case 3:
+            return 'scissors'
+    }
+}
